@@ -2,7 +2,7 @@
 //То есть если массив соответствует 4х4, то дальше будем проверять на наличие букв и символов.
 package org.example;
 
-public class Main {
+public class Lesson_5 {
 
     public static void main(String[] args) {
 
