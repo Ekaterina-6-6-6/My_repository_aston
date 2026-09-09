@@ -11,7 +11,7 @@ public class Lesson_4 {
         Cat catBarsik = new Cat("Барсик");
         Cat catVasya = new Cat("Вася");
 
-        System.out.println("===== ЖИВОТНЫЕ =====");
+        System.out.println("Животные");
 
         System.out.println("\nСобаки бегают:");
 
