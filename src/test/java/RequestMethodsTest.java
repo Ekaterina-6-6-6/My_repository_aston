@@ -62,10 +62,9 @@ class RequestMethodsTest {
                 .when()
                 .post(BASE_URL + "/post");
 
-        System.out.println("========== RESPONSE ==========");
+        System.out.println("Response");
         System.out.println("Status code: " + response.statusCode());
         System.out.println("Response body: " + response.asPrettyString());
-        System.out.println("================================");
 
         assertEquals(200, response.statusCode());
 
