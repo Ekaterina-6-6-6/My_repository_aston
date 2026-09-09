@@ -4,102 +4,98 @@ public class Lesson_4 {
 
     public static void main(String[] args) {
 
-        Animal.Dog dogBobik = new Animal.Dog("Бобик");
-        Animal.Dog dogSharik = new Animal.Dog("Шарик");
+        Dog dogBobik = new Dog("Бобик");
+        Dog dogSharik = new Dog("Шарик");
 
-        Animal.Cat catMurzik = new Animal.Cat("Мурзик");
-        Animal.Cat catBarsik = new Animal.Cat("Барсик");
-        Animal.Cat catVasya = new Animal.Cat("Вася");
+        Cat catMurzik = new Cat("Мурзик");
+        Cat catBarsik = new Cat("Барсик");
+        Cat catVasya = new Cat("Вася");
 
-        System.out.println("Животные");
+        System.out.println("===== ЖИВОТНЫЕ =====");
 
-        System.out.println("\nСобаки бегают");
+        System.out.println("\nСобаки бегают:");
 
-        System.out.println();
-
-        dogBobik.run(0);
+        dogBobik.run(150);
         dogSharik.run(435);
         dogBobik.run(500);
         dogBobik.run(600);
 
-        System.out.println("\nСобаки плавают");
+        System.out.println("\nСобаки плавают:");
 
-        System.out.println();
-
-        dogBobik.swim(0);
         dogBobik.swim(5);
         dogBobik.swim(10);
         dogSharik.swim(20);
 
-        System.out.println("\nКоты бегают");
+        System.out.println("\nКоты бегают:");
 
-        System.out.println();
-
-        catMurzik.run(0);
+        catMurzik.run(100);
         catBarsik.run(150);
         catVasya.run(200);
         catBarsik.run(400);
 
-        System.out.println("\nКоты плавают");
+        System.out.println("\nКоты плавают:");
 
-        System.out.println();
+        catMurzik.swim(10);
+        catVasya.swim(20);
 
-        catMurzik.swim(0);
-        catVasya.swim(10);
+        System.out.println("\nКормление котов");
 
-        System.out.println("\nКоты кушют");
+        Bowl bowl = new Bowl(44);
 
-        System.out.println();
-
-        Animal.Cat.Bowl bowl = new Animal.Cat.Bowl(44);
-
-        Animal.Cat[] cats = {
+        Cat[] cats = {
                 catMurzik,
                 catBarsik,
                 catVasya
         };
 
-        for (Animal.Cat cat : cats) {
+        for (Cat cat : cats) {
             cat.eat(bowl);
         }
 
-        System.out.println();
+        System.out.println("\nСытость котов:");
 
-        for (Animal.Cat cat : cats) {
+        for (Cat cat : cats) {
             System.out.println(
                     cat.name + " сыт: " +
                             (cat.isSatiety() ? "Да" : "Нет")
             );
         }
 
-        bowl.addFood(15);
-
         System.out.println(
-                "\nПосле добавления еды в миске: " +
+                "\nЕды в миске осталось: " +
                         bowl.getFood()
         );
 
+        bowl.addFood(15);
+
         System.out.println(
-                "\nВсего животных: " +
+                "После добавления еды в миске: " +
+                        bowl.getFood()
+        );
+
+        System.out.println("\nПодсчёт животных");
+
+        System.out.println(
+                "Всего животных: " +
                         Animal.getAnimalCount()
         );
 
         System.out.println(
                 "Собак: " +
-                        Animal.Dog.getDogCount()
+                        Dog.getDogCount()
         );
 
         System.out.println(
                 "Котов: " +
-                        Animal.Cat.getCatCount()
+                        Cat.getCatCount()
         );
 
-        System.out.println("\nГеометрические фигуры");
+        System.out.println("\nГеометрия");
 
         Circle circle = new Circle(
                 5,
                 "Красный",
-                "Черный"
+                "Чёрный"
         );
 
         Rectangle rectangle = new Rectangle(
@@ -113,74 +109,43 @@ public class Lesson_4 {
                 3,
                 4,
                 5,
-                "Зеленый",
-                "Черный"
+                "Зелёный",
+                "Чёрный"
         );
 
         System.out.println("\nКруг:");
 
-        System.out.println(
-                "Периметр: " +
-                        circle.getPerimeter()
-        );
-
-        System.out.println(
-                "Площадь: " +
-                        circle.getArea()
-        );
-
-        System.out.println(
-                "Цвет фона: " +
-                        circle.getFillColor()
-        );
-
-        System.out.println(
-                "Цвет границ: " +
-                        circle.getBorderColor()
-        );
+        printFigureInfo(circle);
 
         System.out.println("\nПрямоугольник:");
 
-        System.out.println(
-                "Периметр: " +
-                        rectangle.getPerimeter()
-        );
-
-        System.out.println(
-                "Площадь: " +
-                        rectangle.getArea()
-        );
-
-        System.out.println(
-                "Цвет фона: " +
-                        rectangle.getFillColor()
-        );
-
-        System.out.println(
-                "Цвет границ: " +
-                        rectangle.getBorderColor()
-        );
+        printFigureInfo(rectangle);
 
         System.out.println("\nТреугольник:");
 
+        printFigureInfo(triangle);
+    }
+
+    private static void printFigureInfo(Geometry figure) {
+
         System.out.println(
                 "Периметр: " +
-                        triangle.getPerimeter()
+                        figure.getPerimeter()
         );
 
         System.out.println(
                 "Площадь: " +
-                        triangle.getArea()
+                        figure.getArea()
         );
 
         System.out.println(
                 "Цвет фона: " +
-                        triangle.getFillColor()
+                        figure.getFillColor()
         );
 
         System.out.println(
                 "Цвет границ: " +
-                        triangle.getBorderColor()
+                        figure.getBorderColor()
         );
     }
 }
