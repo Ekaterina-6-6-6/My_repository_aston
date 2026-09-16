@@ -10,33 +10,34 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CheckBlockTitle {
 
+    private static final Duration TIMEOUT = Duration.ofSeconds(10);
+
+    private static final By BLOCK_TITLE_LOCATOR =
+            By.cssSelector(".pay h2");
+
+    private static final String EXPECTED_TITLE =
+            "онлайн пополнение без комиссии";
+
     public void check(WebDriver driver) {
 
-        WebDriverWait wait = new WebDriverWait(
-                driver,
-                Duration.ofSeconds(10)
+        WebDriverWait wait = new WebDriverWait(driver, TIMEOUT);
+
+        WebElement blockTitle = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        BLOCK_TITLE_LOCATOR
+                )
         );
 
-        By titleLocator = By.cssSelector(".pay h2");
-
-        WebElement title = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(titleLocator)
-        );
-
-        String actualTitle = title.getText()
+        String actualTitle = blockTitle.getText()
                 .replace("\n", " ")
                 .replaceAll("\\s+", " ")
                 .trim()
                 .toLowerCase();
 
-        String expectedTitle =
-                "онлайн пополнение без комиссии";
-
         assertEquals(
-                expectedTitle,
+                EXPECTED_TITLE,
                 actualTitle,
                 "Название блока не соответствует ожидаемому"
         );
     }
-
 }
