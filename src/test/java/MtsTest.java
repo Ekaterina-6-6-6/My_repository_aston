@@ -252,8 +252,6 @@ public class MtsTest {
     )
     public void checkPaymentTypeInputLabels() {
 
-        // Услуги связи
-
         mtsPage.selectPaymentType(
                 CONNECTION_PAYMENT_TYPE
         );
@@ -294,8 +292,6 @@ public class MtsTest {
                 mtsPage.getInternetEmailPlaceholder()
         );
 
-        // Рассрочка
-
         mtsPage.selectPaymentType(
                 INSTALMENT_PAYMENT_TYPE
         );
@@ -314,8 +310,6 @@ public class MtsTest {
                 "E-mail для отправки чека",
                 mtsPage.getInstalmentEmailPlaceholder()
         );
-
-        // Задолженность
 
         mtsPage.selectPaymentType(
                 ARREARS_PAYMENT_TYPE
