@@ -7,51 +7,43 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class CheckServiceLink {
 
+    private static final Duration TIMEOUT = Duration.ofSeconds(10);
+
+    private static final String EXPECTED_URL =
+            "https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/";
+
+    private static final By SERVICE_LINK_LOCATOR =
+            By.xpath("//a[normalize-space()='Подробнее о сервисе']");
+
     public void check(WebDriver driver) {
 
-        WebDriverWait wait = new WebDriverWait(
-                driver,
-                Duration.ofSeconds(10)
+        WebDriverWait wait = new WebDriverWait(driver, TIMEOUT);
+
+        WebElement serviceLink = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        SERVICE_LINK_LOCATOR
+                )
         );
 
-        By linkLocator = By.xpath(
-                "//a[normalize-space()='Подробнее о сервисе']"
-        );
-
-        WebElement link = wait.until(
-                ExpectedConditions.elementToBeClickable(linkLocator)
-        );
-
-        String href = link.getAttribute("href");
-
-        assertFalse(
-                href == null || href.isEmpty(),
-                "У ссылки 'Подробнее о сервисе' отсутствует href"
-        );
-
-        String expectedUrl =
-                "https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/";
+        String serviceLinkHref = serviceLink.getAttribute("href");
 
         assertEquals(
-                expectedUrl,
-                href,
+                EXPECTED_URL,
+                serviceLinkHref,
                 "Ссылка ведёт на неправильный адрес"
         );
 
-        String oldUrl = driver.getCurrentUrl();
-
-        link.click();
+        serviceLink.click();
 
         wait.until(
-                ExpectedConditions.urlToBe(href)
+                ExpectedConditions.urlToBe(EXPECTED_URL)
         );
 
         assertEquals(
-                href,
+                EXPECTED_URL,
                 driver.getCurrentUrl(),
                 "Переход по ссылке не выполнен"
         );
