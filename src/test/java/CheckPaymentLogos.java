@@ -9,34 +9,44 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CheckPaymentLogos {
 
+    private static final Duration TIMEOUT = Duration.ofSeconds(10);
+
+    private static final By VISA_LOGO_LOCATOR =
+            By.cssSelector(".pay__partners img[alt='Visa']");
+
+    private static final By MASTERCARD_LOGO_LOCATOR =
+            By.cssSelector(".pay__partners img[alt='MasterCard']");
+
+    private static final By BELKART_LOGO_LOCATOR =
+            By.cssSelector(".pay__partners img[alt='Белкарт']");
+
     public void check(WebDriver driver) {
 
-        WebDriverWait wait = new WebDriverWait(
-                driver,
-                Duration.ofSeconds(10)
-        );
-
-        By visa = By.cssSelector(".pay__partners img[alt='Visa']");
-        By masterCard = By.cssSelector(".pay__partners img[alt='MasterCard']");
-        By belkart = By.cssSelector(".pay__partners img[alt='Белкарт']");
+        WebDriverWait wait = new WebDriverWait(driver, TIMEOUT);
 
         assertTrue(
                 wait.until(
-                        ExpectedConditions.visibilityOfElementLocated(visa)
+                        ExpectedConditions.visibilityOfElementLocated(
+                                VISA_LOGO_LOCATOR
+                        )
                 ).isDisplayed(),
                 "Логотип Visa не отображается"
         );
 
         assertTrue(
                 wait.until(
-                        ExpectedConditions.visibilityOfElementLocated(masterCard)
+                        ExpectedConditions.visibilityOfElementLocated(
+                                MASTERCARD_LOGO_LOCATOR
+                        )
                 ).isDisplayed(),
                 "Логотип MasterCard не отображается"
         );
 
         assertTrue(
                 wait.until(
-                        ExpectedConditions.visibilityOfElementLocated(belkart)
+                        ExpectedConditions.visibilityOfElementLocated(
+                                BELKART_LOGO_LOCATOR
+                        )
                 ).isDisplayed(),
                 "Логотип Белкарт не отображается"
         );
