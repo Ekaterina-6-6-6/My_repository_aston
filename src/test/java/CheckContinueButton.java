@@ -18,7 +18,6 @@ public class CheckContinueButton {
                 Duration.ofSeconds(10)
         );
 
-        // Открываем список услуг
         By selectHeader = By.cssSelector(".pay .select__header");
 
         WebElement selectButton = wait.until(
@@ -27,7 +26,6 @@ public class CheckContinueButton {
 
         selectButton.click();
 
-        // Выбираем "Услуги связи"
         By connectionOption = By.xpath(
                 "//div[contains(@class,'pay')]//li[contains(@class,'select__item')]" +
                         "[.//p[normalize-space()='Услуги связи']]"
@@ -39,7 +37,6 @@ public class CheckContinueButton {
 
         connection.click();
 
-        // Проверяем, что выбран вариант "Услуги связи"
         By selectedService = By.cssSelector(".pay .select__now");
 
         String selectedText = wait.until(
@@ -52,7 +49,6 @@ public class CheckContinueButton {
                 "Не выбран вариант 'Услуги связи'"
         );
 
-        // Заполняем номер телефона
         WebElement phone = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(
                         By.id("connection-phone")
@@ -62,7 +58,6 @@ public class CheckContinueButton {
         phone.clear();
         phone.sendKeys("297777777");
 
-        // Заполняем сумму
         WebElement sum = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(
                         By.id("connection-sum")
@@ -72,7 +67,6 @@ public class CheckContinueButton {
         sum.clear();
         sum.sendKeys("10");
 
-        // Заполняем e-mail
         WebElement email = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(
                         By.id("connection-email")
@@ -82,7 +76,6 @@ public class CheckContinueButton {
         email.clear();
         email.sendKeys("test@example.com");
 
-        // Проверяем номер телефона с учётом автоматического форматирования
         String actualPhone = phone.getAttribute("value");
 
         assertTrue(
@@ -90,21 +83,18 @@ public class CheckContinueButton {
                 "Номер телефона введён неправильно: " + actualPhone
         );
 
-        // Проверяем сумму
         assertEquals(
                 "10",
                 sum.getAttribute("value"),
                 "Сумма введена неправильно"
         );
 
-        // Проверяем e-mail
         assertEquals(
                 "test@example.com",
                 email.getAttribute("value"),
                 "E-mail введён неправильно"
         );
 
-        // Находим кнопку "Продолжить"
         By continueButtonLocator = By.xpath(
                 "//form[@id='pay-connection']" +
                         "//button[normalize-space()='Продолжить']"
@@ -116,13 +106,11 @@ public class CheckContinueButton {
                 )
         );
 
-        // Проверяем, что кнопка доступна
         assertTrue(
                 continueButton.isEnabled(),
                 "Кнопка 'Продолжить' недоступна"
         );
 
-        // Нажимаем "Продолжить"
         continueButton.click();
     }
 }
