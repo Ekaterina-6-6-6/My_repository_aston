@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class Lesson_9 {
+public class MtsTest {
 
     private static final String BASE_URL = "https://www.mts.by/";
     private static final Duration TIMEOUT = Duration.ofSeconds(10);
