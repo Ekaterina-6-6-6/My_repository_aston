@@ -1,4 +1,4 @@
-import org.example.age;
+import org.example.MtsPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,7 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class esson_9 {
+public class Lesson_9 {
 
     private static final String MTS_URL = "https://www.mts.by/";
 
@@ -39,7 +39,7 @@ public class esson_9 {
             "Оплатить 10.00 BYN";
 
     private WebDriver driver;
-    private age mtsPage;
+    private MtsPage mtsPage;
 
     @BeforeEach
     public void setUp() {
@@ -47,7 +47,7 @@ public class esson_9 {
         driver.manage().window().maximize();
         driver.get(MTS_URL);
 
-        mtsPage = new age(driver);
+        mtsPage = new MtsPage(driver);
         mtsPage.acceptCookies();
     }
 
