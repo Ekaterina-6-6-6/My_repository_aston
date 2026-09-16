@@ -8,7 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class Lesson_9 {
+public class Lesson_10 {
 
     private static final String MTS_URL = "https://www.mts.by/";
 
