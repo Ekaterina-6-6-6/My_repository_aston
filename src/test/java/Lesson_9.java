@@ -11,37 +11,35 @@ import java.time.Duration;
 
 public class Lesson_9 {
 
+    private static final String BASE_URL = "https://www.mts.by/";
+    private static final Duration TIMEOUT = Duration.ofSeconds(10);
+
     private WebDriver driver;
+    private WebDriverWait wait;
 
     @BeforeEach
     void setUp() {
         driver = new ChromeDriver();
+        wait = new WebDriverWait(driver, TIMEOUT);
 
         driver.manage().window().maximize();
-        driver.get("https://www.mts.by/");
+        driver.get(BASE_URL);
 
         acceptCookies();
     }
 
     @AfterEach
     void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        driver.quit();
     }
 
     private void acceptCookies() {
-        WebDriverWait wait = new WebDriverWait(
-                driver,
-                Duration.ofSeconds(10)
-        );
-
-        By acceptButton = By.xpath(
+        By acceptButtonLocator = By.xpath(
                 "//button[normalize-space()='Принять']"
         );
 
         wait.until(
-                ExpectedConditions.elementToBeClickable(acceptButton)
+                ExpectedConditions.elementToBeClickable(acceptButtonLocator)
         ).click();
     }
 
