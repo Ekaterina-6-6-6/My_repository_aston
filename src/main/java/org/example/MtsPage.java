@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class age {
+public class MtsPage {
 
     private final WebDriver driver;
     private final WebDriverWait wait;
