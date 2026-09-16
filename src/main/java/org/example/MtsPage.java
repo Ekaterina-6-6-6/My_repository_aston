@@ -86,7 +86,7 @@ public class MtsPage {
     private final By paymentBelkartLogo =
             By.cssSelector(".cards-brands__container img[src*='belkart-system']");
 
-    public age(WebDriver driver) {
+    public MtsPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
