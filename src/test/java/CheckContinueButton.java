@@ -11,106 +11,132 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CheckContinueButton {
 
+    private static final Duration TIMEOUT = Duration.ofSeconds(10);
+
+    private static final String EXPECTED_PAYMENT_SERVICE = "Услуги связи";
+    private static final String TEST_PHONE_NUMBER = "297777777";
+    private static final String TEST_PAYMENT_AMOUNT = "10";
+    private static final String TEST_RECEIPT_EMAIL = "test@example.com";
+
+    private static final By SERVICE_DROPDOWN_BUTTON_LOCATOR =
+            By.cssSelector(".pay .select__header");
+
+    private static final By COMMUNICATION_SERVICES_OPTION_LOCATOR =
+            By.xpath(
+                    "//div[contains(@class,'pay')]" +
+                            "//li[contains(@class,'select__item')]" +
+                            "[.//p[normalize-space()='Услуги связи']]"
+            );
+
+    private static final By SELECTED_PAYMENT_SERVICE_LOCATOR =
+            By.cssSelector(".pay .select__now");
+
+    private static final By PHONE_NUMBER_FIELD_LOCATOR =
+            By.id("connection-phone");
+
+    private static final By PAYMENT_AMOUNT_FIELD_LOCATOR =
+            By.id("connection-sum");
+
+    private static final By RECEIPT_EMAIL_FIELD_LOCATOR =
+            By.id("connection-email");
+
+    private static final By CONTINUE_PAYMENT_BUTTON_LOCATOR =
+            By.xpath(
+                    "//form[@id='pay-connection']" +
+                            "//button[normalize-space()='Продолжить']"
+            );
+
     public void check(WebDriver driver) {
 
-        WebDriverWait wait = new WebDriverWait(
-                driver,
-                Duration.ofSeconds(10)
+        WebDriverWait wait = new WebDriverWait(driver, TIMEOUT);
+
+        WebElement serviceDropdownButton = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        SERVICE_DROPDOWN_BUTTON_LOCATOR
+                )
         );
 
-        By selectHeader = By.cssSelector(".pay .select__header");
+        serviceDropdownButton.click();
 
-        WebElement selectButton = wait.until(
-                ExpectedConditions.elementToBeClickable(selectHeader)
+        WebElement communicationServicesOption = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        COMMUNICATION_SERVICES_OPTION_LOCATOR
+                )
         );
 
-        selectButton.click();
+        communicationServicesOption.click();
 
-        By connectionOption = By.xpath(
-                "//div[contains(@class,'pay')]//li[contains(@class,'select__item')]" +
-                        "[.//p[normalize-space()='Услуги связи']]"
-        );
-
-        WebElement connection = wait.until(
-                ExpectedConditions.elementToBeClickable(connectionOption)
-        );
-
-        connection.click();
-
-        By selectedService = By.cssSelector(".pay .select__now");
-
-        String selectedText = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(selectedService)
+        String selectedPaymentService = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        SELECTED_PAYMENT_SERVICE_LOCATOR
+                )
         ).getText().trim();
 
         assertEquals(
-                "Услуги связи",
-                selectedText,
+                EXPECTED_PAYMENT_SERVICE,
+                selectedPaymentService,
                 "Не выбран вариант 'Услуги связи'"
         );
 
-        WebElement phone = wait.until(
+        WebElement phoneNumberField = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(
-                        By.id("connection-phone")
+                        PHONE_NUMBER_FIELD_LOCATOR
                 )
         );
 
-        phone.clear();
-        phone.sendKeys("297777777");
+        phoneNumberField.clear();
+        phoneNumberField.sendKeys(TEST_PHONE_NUMBER);
 
-        WebElement sum = wait.until(
+        WebElement paymentAmountField = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(
-                        By.id("connection-sum")
+                        PAYMENT_AMOUNT_FIELD_LOCATOR
                 )
         );
 
-        sum.clear();
-        sum.sendKeys("10");
+        paymentAmountField.clear();
+        paymentAmountField.sendKeys(TEST_PAYMENT_AMOUNT);
 
-        WebElement email = wait.until(
+        WebElement receiptEmailField = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(
-                        By.id("connection-email")
+                        RECEIPT_EMAIL_FIELD_LOCATOR
                 )
         );
 
-        email.clear();
-        email.sendKeys("test@example.com");
+        receiptEmailField.clear();
+        receiptEmailField.sendKeys(TEST_RECEIPT_EMAIL);
 
-        String actualPhone = phone.getAttribute("value");
+        String formattedPhoneNumber =
+                phoneNumberField.getAttribute("value");
 
-        assertTrue(
-                actualPhone.replaceAll("\\D", "").equals("297777777"),
-                "Номер телефона введён неправильно: " + actualPhone
+        assertEquals(
+                TEST_PHONE_NUMBER,
+                formattedPhoneNumber.replaceAll("\\D", ""),
+                "Номер телефона введён неправильно: " + formattedPhoneNumber
         );
 
         assertEquals(
-                "10",
-                sum.getAttribute("value"),
+                TEST_PAYMENT_AMOUNT,
+                paymentAmountField.getAttribute("value"),
                 "Сумма введена неправильно"
         );
 
         assertEquals(
-                "test@example.com",
-                email.getAttribute("value"),
+                TEST_RECEIPT_EMAIL,
+                receiptEmailField.getAttribute("value"),
                 "E-mail введён неправильно"
         );
 
-        By continueButtonLocator = By.xpath(
-                "//form[@id='pay-connection']" +
-                        "//button[normalize-space()='Продолжить']"
-        );
-
-        WebElement continueButton = wait.until(
+        WebElement continuePaymentButton = wait.until(
                 ExpectedConditions.elementToBeClickable(
-                        continueButtonLocator
+                        CONTINUE_PAYMENT_BUTTON_LOCATOR
                 )
         );
 
         assertTrue(
-                continueButton.isEnabled(),
+                continuePaymentButton.isEnabled(),
                 "Кнопка 'Продолжить' недоступна"
         );
 
-        continueButton.click();
+        continuePaymentButton.click();
     }
 }
